@@ -2,9 +2,9 @@
   "name": "open-port-host",
   "version": "1.0.0",
   "description": "Find the first open port in a range by host name.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo && mocha test/**/*.spec.js --recursive"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,28 @@
   "bugs": {
     "url": "https://github.com/f1lt3r/open-port-host/issues"
   },
-  "homepage": "https://github.com/f1lt3r/open-port-host#readme"
+  "homepage": "https://github.com/f1lt3r/open-port-host#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "xo": "^0.17.1"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6"
+  },
+  "xo": {
+    "esnext": true,
+    "space": 2,
+    "globals": [
+      "it",
+      "describe",
+      "beforeEach",
+      "before",
+      "after",
+      "afterEach"
+    ],
+    "rules": {
+      "import/no-extraneous-dependencies": 0
+    }
+  }
 }
