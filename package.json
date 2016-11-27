@@ -1,0 +1,30 @@
+{
+  "name": "open-port-host",
+  "version": "1.0.0",
+  "description": "Find the first open port in a range by host name.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/f1lt3r/open-port-host.git"
+  },
+  "keywords": [
+    "open",
+    "port",
+    "find",
+    "host",
+    "name",
+    "localhost",
+    "loopback",
+    "127.0.0.1",
+    "ip"
+  ],
+  "author": "f1lt3r",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/f1lt3r/open-port-host/issues"
+  },
+  "homepage": "https://github.com/f1lt3r/open-port-host#readme"
+}
