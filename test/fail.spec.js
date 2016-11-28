@@ -3,13 +3,14 @@ const chai = require('chai');
 
 const expect = chai.expect;
 
-const findPortHost = require('app/index.js');
+const findPortHost = require('../index.js');
 
 describe('test-port-host', () => {
   it('should not find an open port when port is already used', done => {
     const options = {
+      // debug: true,
       start: 8000,
-      end: 8100,
+      end: 8016,
       host: 'localhost'
     };
 

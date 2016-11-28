@@ -1,8 +1,8 @@
 {
   "name": "open-port-host",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Find the first open port in a range by host name.",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "xo && mocha test/**/*.spec.js --recursive"
   },
