@@ -1,6 +1,6 @@
 {
   "name": "open-port-host",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Find the first open port in a range by host name.",
   "main": "index.js",
   "scripts": {

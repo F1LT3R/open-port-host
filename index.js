@@ -18,35 +18,50 @@ const tryServer = opts => new Promise(resolve => {
     if (debug) {
       console.log(`listening on: ${port}, ${host})`);
     }
-    server.once('close', () => {
-      if (debug) {
-        console.log(`closed: ${port}, ${host})`);
-      }
-      resolve(port);
+
+    resolve({
+      port: port,
+      server: server
     });
-    server.close();
   });
 });
 
 const findPort = options => new Promise((resolve, reject) => {
-  const {start, end, host, debug} = options;
-  let ports = [];
+  const {start, end, host, debug, count} = options;
+
+  const activeServers = [];
+  let portsToTry = [];
+
+  if (!count) {
+    count = 1;
+  }
+
 
   if (debug) {
-    console.log(`openporthost - {start: ${start}, end: ${end}, host: ${host}}`);
+    console.log(`openporthost - {start: ${start}, end: ${end}, host: ${host}, count: ${count}}`);
   }
 
   const fire = () => new Promise((resolve, reject) => {
-    if (ports.length > 0) {
-      const port = ports.shift();
+    if (portsToTry.length > 0) {
+      const port = portsToTry.shift();
 
       return tryServer({port, host, debug}).then(result => {
-        if (typeof result === 'number' && result > -1) {
+        if (result instanceof Error) {
+          return resolve(fire());
+        }
+
+        if (typeof result.port === 'number' &&
+          result.port > -1) {
           if (debug) {
             console.log(`found open port: ${port}, ${host}`);
           }
-          ports = [];
-          return resolve(result);
+
+        activeServers.push(result);
+
+          if (activeServers.length >= count) {
+          portsToTry = [];
+          return resolve(activeServers);
+          }
         }
 
         resolve(fire());
@@ -58,7 +73,7 @@ const findPort = options => new Promise((resolve, reject) => {
 
   let n = start;
   while (n < end + 1) {
-    ports.push(n);
+    portsToTry.push(n);
     n += 1;
   }
 
@@ -73,12 +88,12 @@ module.exports = findPort;
 //   start: 8000,
 //   end: 8004,
 //   host: 'localhost',
-//   debug: true
+//   debug: true,
+//   count: 2
 // };
 
-// findPort(options).then(port => {
-//   console.log(port);
+// findPort(options).then(reservedAddresses => {
+//   console.log(reservedAddresses);
 // }).catch(err => {
 //   throw err;
 // });
-
